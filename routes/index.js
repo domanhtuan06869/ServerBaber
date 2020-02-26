@@ -1,12 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const withAuth = require('../middleware');
-var Slide=new require('../model/slide')
-var Customer=new require('../model/customer')
-var Contact =new require('../model/contact')
-var News =new require('../model/news')
-var Team =new require('../model/team')
-var Intro=new require('../model/intro')
 
 
 var init = require('../model/init');
@@ -14,20 +8,16 @@ var init = require('../model/init');
 
 var uploadAWS = init.uploadAWS;
 router.post('/Uploadfile', uploadAWS.any(), function (req, res) {
-        console.log(req.files)
     let responseData = [];
     req.files.forEach((data) => {
       responseData.push(data.location);
     });
-  //  console.log(responseData)
-
-
     res.send(responseData)
   })
 
 
 /* GET home page. */
-router.post('/postSlide', withAuth,function(req, res, next) {
+/*router.post('/postSlide', withAuth,function(req, res, next) {
     const {stt,title,content,urlimage}=req.body
 
     const savesl=new Slide({Stt:stt,Title:title,Content:content,UrlImage:urlimage})
@@ -198,5 +188,5 @@ router.put('/updateCustomer',withAuth,function(req,res){
       .then(doc => {
   res.send(doc)  
 })
-})
+})*/
 module.exports = router;

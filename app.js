@@ -25,13 +25,6 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
-app.use('/s3', require('react-dropzone-s3-uploader/s3router')({
-    
-    bucket: 'bbs-final',                           // required
-    region: 'ap-southeast-1',                            // optional
-    headers: {'Access-Control-Allow-Origin': '*'},  // optional
-    ACL: 'public-read',                                 // this is the default - set to `public-read` to let anyone view uploads
-  }));
 
 
 (async()=>
@@ -45,9 +38,10 @@ await mongoose.connect(urlmogodb.urlMongoodb, {
 
 app.use('/',indexRouter)
 app.use('/',usersRouter)
-app.get('/*', function(req, res) {
+app.use('/',require('./routes/controller'))
+/*app.get('/*', function(req, res) {
     res.sendfile(path.join(__dirname, 'build', 'index.html'))
-});
+});*/
 
 
 app.use(function(req, res, next) {
