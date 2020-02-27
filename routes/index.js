@@ -17,7 +17,7 @@ router.post('/Uploadfile', uploadAWS.any(), function (req, res) {
 
 
 /* GET home page. */
-/*router.post('/postSlide', withAuth,function(req, res, next) {
+router.post('/postSlide', withAuth,function(req, res, next) {
     const {stt,title,content,urlimage}=req.body
 
     const savesl=new Slide({Stt:stt,Title:title,Content:content,UrlImage:urlimage})
@@ -188,5 +188,5 @@ router.put('/updateCustomer',withAuth,function(req,res){
       .then(doc => {
   res.send(doc)  
 })
-})*/
+})
 module.exports = router;

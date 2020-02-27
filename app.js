@@ -17,7 +17,6 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-  
     maxAge:60000000*60
   }))
 app.use(bodyParser.json({limit: '50mb'}));
@@ -39,9 +38,9 @@ await mongoose.connect(urlmogodb.urlMongoodb, {
 app.use('/',indexRouter)
 app.use('/',usersRouter)
 app.use('/',require('./routes/controller'))
-/*app.get('/*', function(req, res) {
+app.get('/*', function(req, res) {
     res.sendfile(path.join(__dirname, 'build', 'index.html'))
-});*/
+});
 
 
 app.use(function(req, res, next) {
