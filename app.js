@@ -37,16 +37,17 @@ await mongoose.connect(urlmogodb.urlMongoodb, {
 
 app.use('/',indexRouter)
 app.use('/',usersRouter)
-app.use('/',require('./routes/controller'))
-app.get('/*', function(req, res) {
+app.use('/',require('./routes/controller'));
+app.use('/',require('./routes/style_controller'));
+app.use('/',require('./routes/book_controller'));
+/*app.get('/*', function(req, res) {
     res.sendfile(path.join(__dirname, 'build', 'index.html'))
-});
+});*/
 
 
 app.use(function(req, res, next) {
     next(createError(404));
 });
-app.use('/index', indexRouter);
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development

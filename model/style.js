@@ -1,4 +1,5 @@
-const StyleSchema = new Schema({
+const mongoose=require('mongoose')
+const StyleSchema = new mongoose.Schema({
     namestyle: {
         type: String,
         trim: true
