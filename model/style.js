@@ -1,8 +1,5 @@
-const StyleSchema = new Schema({
-    namestyle: {
-        type: String,
-        trim: true
-    },
+const mongoose = require('mongoose');
+const StyleSchema = new mongoose.Schema({
     imgStyle: {
         type: Array,
     },
