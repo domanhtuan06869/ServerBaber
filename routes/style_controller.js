@@ -1,12 +1,20 @@
 var express = require('express');
 var router = express.Router();
-var Style =new require('../model/style');
-router.get('/getStyle',function(req,res){
+var Style = new require('../model/style');
+const withAuth = require('../middleware');
 
-    Style.find({}).then((docs)=>{
+router.get('/getStyle', function (req, res) {
+    Style.find({}).then((docs) => {
         res.send(docs)
     })
+});
 
-})
+router.post('/postStyle', withAuth, function (req, res, next) {
+    const { arrayStyle } = req.body
 
-module.exports=router
+    const saveImage = new Style({ imgStyle:arrayStyle});
+    saveImage.save();
+    res.send(saveImage);
+});
+
+module.exports = router

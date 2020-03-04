@@ -12,12 +12,13 @@ router.post('/Uploadfile', uploadAWS.any(), function (req, res) {
     req.files.forEach((data) => {
       responseData.push(data.location);
     });
+    console.log(responseData)
     res.send(responseData)
   })
 
 
 /* GET home page. */
-router.post('/postSlide', withAuth,function(req, res, next) {
+/*router.post('/postSlide', withAuth,function(req, res, next) {
     const {stt,title,content,urlimage}=req.body
 
     const savesl=new Slide({Stt:stt,Title:title,Content:content,UrlImage:urlimage})
@@ -188,5 +189,5 @@ router.put('/updateCustomer',withAuth,function(req,res){
       .then(doc => {
   res.send(doc)  
 })
-})
+})*/
 module.exports = router;
