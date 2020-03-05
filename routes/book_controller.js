@@ -33,12 +33,9 @@ router.get('/getbook',function(req,res){
     })
 })
 
-router.get('/getbooka',function(req,res){
+router.post('/createMenberCut',function(req,res){
 
-    Book.find({}).then((docs)=>{
-        res.send(docs)
-    })
-})
+});
 
 
 module.exports = router;
