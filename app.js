@@ -40,9 +40,10 @@ app.use('/',usersRouter)
 app.use('/',require('./routes/controller'));
 app.use('/',require('./routes/style_controller'));
 app.use('/',require('./routes/book_controller'));
-/*app.get('/*', function(req, res) {
+
+app.get('/*', function(req, res) {
     res.sendfile(path.join(__dirname, 'build', 'index.html'))
-});*/
+});
 
 
 app.use(function(req, res, next) {
