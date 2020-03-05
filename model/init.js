@@ -3,12 +3,8 @@ var multer = require("multer");
 const aws = require("aws-sdk");
 
 aws.config.update({
-    // Your SECRET ACCESS KEY from AWS should go here,
-    // Never share it!
-    // Setup Env Variable, e.g: process.env.SECRET_ACCESS_KEY
+
     secretAccessKey: "zJOaSdT6v+U+ebh6jgMcwiokgzVVpZhleJbb5SaS",
-    // Not working key, Your ACCESS KEY ID from AWS should go here,
-    // Setup Env Variable, e.g: process.env.ACCESS_KEY_ID
     accessKeyId:"AKIA2BH6MTTBSGXGLXNL",
     region: "ap-southeast-1" // region of your bucket
 });
@@ -53,7 +49,7 @@ module.exports={
         return multer({
              storage: multerS3({
                  s3: s3,
-                 bucket: "kyc-nosa-file/HuyHoang"+path,
+                 bucket: ""+path,
                  contentType: multerS3.AUTO_CONTENT_TYPE,
                  acl: "public-read",
                  metadata: function (req, file, cb) {
