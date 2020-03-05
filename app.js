@@ -40,6 +40,8 @@ app.use('/',usersRouter)
 app.use('/',require('./routes/controller'));
 app.use('/',require('./routes/style_controller'));
 app.use('/',require('./routes/book_controller'));
+app.use('/',require('./routes/store_controller'));
+app.use('/',require('./routes/menber_cut_controller'))
 
 app.get('/*', function(req, res) {
     res.sendfile(path.join(__dirname, 'build', 'index.html'))
