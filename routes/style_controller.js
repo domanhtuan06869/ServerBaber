@@ -9,9 +9,9 @@ router.get('/getStyle', function (req, res) {
     })
 });
 
-router.post('/postStyle', withAuth, function (req, res, next) {
+router.post('/postStyle',  function (req, res, next) {
     const { arrayStyle } = req.body
-
+console.log(arrayStyle)
     const saveImage = new Style({ imgStyle:arrayStyle});
     saveImage.save();
     res.send(saveImage);

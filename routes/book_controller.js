@@ -8,23 +8,27 @@ router.post('/postBook',  function (req, res, next) {
     let year=date.getFullYear();
     let month=date.getMonth();
     let day=date.getDate();
-    let today=`${year}-${month}-${day+1}`
+    let today=`${year}-${month+1}-${day+1}`
+    console.log(today)
     
     const {address,name } = req.body
-    const saveBook = new Book({ address:address,name:name,datebook:new Date(today)});
+    const saveBook = new Book({ address:address,name:name,datebook:today});
     saveBook.save();
     res.send(saveBook);
 });
 
 router.get('/getbook',function(req,res){
+    const{name,address}=req.query
     let date=new Date();
     let year=date.getFullYear();
     let month=date.getMonth();
     let day=date.getDate();
-    let today=`${year}-${month+1}-${(day+5)}`
-    console.log(today)
+    let today=`${year}-${month+1}-${(day)}`
+    let todaylast=`${year}-${month+1}-${(day+1)}`
+    console.log('todey',today)
+    console.log('todey',todaylast)
 
-    Book.find({datebook:{  $gte: today }}).then((docs)=>{
+    Book.find({name:name,address:address,datebook:{ $gte:today, $lte:todaylast }}).then((docs)=>{
         res.send(docs)
     })
 })
