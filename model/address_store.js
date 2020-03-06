@@ -1,8 +1,16 @@
 const mongoose = require('mongoose');
 const StoreSchema = new mongoose.Schema({
+    province: {
+        type: String,
+        trim: true
+    },
+    district: {
+        type: String,
+        trim: true
+    },
     address: {
         type: String,
-        trim:true,
+        trim: true,
     },
-},{ versionKey: false });
+}, { versionKey: false });
 module.exports = mongoose.model('store', StoreSchema);

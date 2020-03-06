@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const MenberSchema = new mongoose.Schema({
-    name_menber_cut: {
+    name: {
         type: String,
         trim: true,
     },
@@ -8,21 +8,11 @@ const MenberSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    age: {
-        type: String,
-        trim: true,
-
-    },
     phone: {
         type: String,
         trim: true,
 
     },
-    number_cmt: {
-        type: String,
-        trim: true,
 
-    }
-
-},{ versionKey: false });
+}, { versionKey: false });
 module.exports = mongoose.model('menber', MenberSchema);

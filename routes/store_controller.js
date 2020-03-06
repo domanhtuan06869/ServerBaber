@@ -10,16 +10,17 @@ router.get('/getStore', function (req, res) {
 });
 
 router.post('/postStore', function (req, res, next) {
-    const { address } = req.body
-    const store = new Store({ address:address});
+    const { address ,province,district} = req.body
+    const store = new Store({ address:address,province:province,district:district});
     store.save();
     res.send(store);
 });
-router.delete('/deleteStyle', function (req, res, next) {
+router.delete('/deleteStore', function (req, res, next) {
     const { id } = req.body
-    const style=new Style({_id:id});
-     style.remove();
-     res.send(style)
+    console.log(id)
+    const store=new Store({_id:id});
+     store.remove();
+     res.send(store)
 });
 
 
