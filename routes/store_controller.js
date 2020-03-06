@@ -10,8 +10,8 @@ router.get('/getStore', function (req, res) {
 });
 
 router.post('/postStore', function (req, res, next) {
-    const { address } = req.body
-    const store = new Store({ address:address});
+    const { address ,province,district} = req.body
+    const store = new Store({ address:address,province:province,district:district});
     store.save();
     res.send(store);
 });
