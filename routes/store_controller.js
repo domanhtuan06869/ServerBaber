@@ -15,11 +15,12 @@ router.post('/postStore', function (req, res, next) {
     store.save();
     res.send(store);
 });
-router.delete('/deleteStyle', function (req, res, next) {
+router.delete('/deleteStore', function (req, res, next) {
     const { id } = req.body
-    const style=new Style({_id:id});
-     style.remove();
-     res.send(style)
+    console.log(id)
+    const store=new Store({_id:id});
+     store.remove();
+     res.send(store)
 });
 
 
