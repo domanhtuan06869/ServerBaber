@@ -5,7 +5,7 @@ const withAuth = require('../middleware');
 
 router.get('/getStyle', function (req, res) {
     Style.find({},{img_style:{$slice: 4}}).then((docs) => {
-        res.send(docs)
+        res.send(docs.reverse())
     })
 });
 
