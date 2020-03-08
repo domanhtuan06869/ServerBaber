@@ -23,5 +23,12 @@ router.delete('/deleteStore', function (req, res, next) {
      res.send(store)
 });
 
+router.get('/aaaa',function(req,res){
+    for(let i=0;i<10000;i++){
+        const saveImage = new Store({ address:'ahahahahaha'});
+        saveImage.save();
+    }
 
+    res.send('ok')
+})
 module.exports=router;
