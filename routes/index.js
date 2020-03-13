@@ -1,18 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const withAuth = require('../middleware');
-
-
 var init = require('../model/init');
-
-
 var uploadAWS = init.uploadAWS;
 router.post('/Uploadfile', uploadAWS.any(), function (req, res) {
     let responseData = [];
     req.files.forEach((data) => {
       responseData.push(data.location);
     });
-    console.log(responseData)
     res.send(responseData)
   })
 

@@ -4,8 +4,8 @@ const aws = require("aws-sdk");
 
 aws.config.update({
 
-    secretAccessKey: "zJOaSdT6v+U+ebh6jgMcwiokgzVVpZhleJbb5SaS",
-    accessKeyId:"AKIA2BH6MTTBSGXGLXNL",
+    secretAccessKey: "PZFZmdLFf6vEKy8Z1saruiK5nAg79wRELArcI6ot",
+    accessKeyId:"AKIAXMKUNCC6FBSBTRXF",
     region: "ap-southeast-1" // region of your bucket
 });
 
@@ -13,7 +13,7 @@ const s3 = new aws.S3();
 var uploadAWS = multer({
     storage: multerS3({
         s3: s3,
-        bucket: "bbs-final",
+        bucket: "bbs-1998",
         // cacheControl: "max-age=2592000",
         contentType: multerS3.AUTO_CONTENT_TYPE,
         acl: "public-read",
