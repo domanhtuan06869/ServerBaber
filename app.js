@@ -29,7 +29,8 @@ app.use(express.static(path.join(__dirname, 'build')));
 (async () =>
     await mongoose.connect(urlmogodb.urlMongoodb, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useCreateIndex: true
     }).then(() => {
         console.log('mongodb connect')
     })
