@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const GuestBooked = new mongoose.Schema({
     numberPhone: {
         type: String,
@@ -25,4 +26,5 @@ const GuestBooked = new mongoose.Schema({
         trim: true,
     },
 }, { versionKey: false });
+
 module.exports = mongoose.model('guestbooked', GuestBooked);

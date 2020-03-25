@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var Style = new require('../model/style');
+const express = require('express');
+const router = express.Router();
+const Style = new require('../model/style');
 const withAuth = require('../middleware');
 
 router.get('/getStyle', function (req, res) {
@@ -23,7 +23,5 @@ router.delete('/deleteStyle', function (req, res, next) {
      style.remove();
      res.send(style)
 });
-
-
 
 module.exports = router

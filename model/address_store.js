@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const StoreSchema = new mongoose.Schema({
     province: {
         type: String,
@@ -13,4 +14,5 @@ const StoreSchema = new mongoose.Schema({
         trim: true,
     },
 }, { versionKey: false });
+
 module.exports = mongoose.model('store', StoreSchema);

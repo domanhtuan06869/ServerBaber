@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var Menber = new require('../model/menber_cut');
+const express = require('express');
+const router = express.Router();
+const Menber = new require('../model/menber_cut');
 const withAuth = require('../middleware');
 
 router.get('/getMenber', function (req, res) {

@@ -1,5 +1,5 @@
 const multerS3 = require("multer-s3");
-var multer = require("multer");
+const multer = require("multer");
 const aws = require("aws-sdk");
 
 aws.config.update({
@@ -10,7 +10,7 @@ aws.config.update({
 });
 
 const s3 = new aws.S3();
-var uploadAWS = multer({
+const uploadAWS = multer({
     storage: multerS3({
         s3: s3,
         bucket: "bbs-1998",
@@ -27,7 +27,7 @@ var uploadAWS = multer({
         }
     })
 });
-var storage = multer.diskStorage({
+const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "");
     },
@@ -36,7 +36,7 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({
+const upload = multer({
     storage: storage
 });
 module.exports={

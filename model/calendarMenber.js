@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const BookSchema = new mongoose.Schema({
     province: {
         type: String,
@@ -187,4 +188,5 @@ const BookSchema = new mongoose.Schema({
         }
     }
 }, { versionKey: false });
+
 module.exports = mongoose.model('calendarMenber', BookSchema);
