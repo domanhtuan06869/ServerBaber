@@ -3,12 +3,12 @@ const router = express.Router();
 const CalendarMenber = new require('../model/calendarMenber');
 const withAuth = require('../middleware');
 
-router.post('/postBook', function (req, res, next) {
+router.post('/postBook', function (req, res) {
 
     const { address, province, district, name, datetime, phone, id_store } = req.body
     const saveCalendarMenber = new CalendarMenber({
         address: address,
-        name_menber_cut: name,
+        name_menber: name,
         date_menber_cut: datetime,
         province: province,
         district: district,
@@ -26,8 +26,8 @@ router.get('/getmanagercalendarcrate', function (req, res) {
     let year = date.getFullYear();
     let month = date.getMonth();
     let day = date.getDate();
-    let today = `${year}-${month + 1}-${(day)}`
-    let todaylast = `${year}-${month + 1}-${(day + 1)}`
+    let today = `${year}/${month+1 }/${(day)}`
+    let todaylast = `${year}/${month +1}/${(day+1)}`
 
     CalendarMenber.find({ id_store: id_store, date_menber_cut: { $gte: today, $lte: todaylast } }).then((docs) => {
         res.send(docs);
