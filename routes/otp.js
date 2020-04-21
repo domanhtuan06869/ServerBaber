@@ -12,7 +12,7 @@ router.post('/sendOTP',function(req,res){
   const{phone}=req.body
   console.log(phone)
   nexmo.verify.request({
-    number: '84375912713',
+    number: '84'+phone,
     brand: 'Barber',
     code_length: '6'
   }, (err, result) => {
