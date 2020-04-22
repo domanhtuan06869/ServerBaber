@@ -8,11 +8,11 @@ const nexmo = new Nexmo({
 });
 
 
-router.post('/sendOTP',function(req,res){
-  const{phone}=req.body
+router.post('/sendOTP', function (req, res) {
+  const { phone } = req.body
   console.log(phone)
   nexmo.verify.request({
-    number: '84'+phone,
+    number: '84' + phone,
     brand: 'Barber',
     code_length: '6'
   }, (err, result) => {
@@ -21,7 +21,7 @@ router.post('/sendOTP',function(req,res){
   });
 })
 
-router.post('/checkOTP',function(req,res){
+router.post('/checkOTP', function (req, res) {
   nexmo.verify.check({
     request_id: req.body.id,
     code: req.body.code
@@ -30,26 +30,30 @@ router.post('/checkOTP',function(req,res){
     res.send(result)
   });
 })
-router.post('/confirmOTP',function(req,res){
+router.post('/confirmOTP', async function (req, res) {
   console.log(req.body.id)
-  nexmo.verify.control({
+  await nexmo.verify.control({
     request_id: req.body.id,
     cmd: 'cancel'
   }, (err, result) => {
     console.log(err ? err : result)
-    nexmo.verify.request({
-      number: '84'+req.body.phone,
-      brand: 'Barber',
-      code_length: '6'
-    }, (err, result) => {
-      console.log(err ? err : result)
+    if (result.status === '0') {
+      nexmo.verify.request({
+        number: '84' + req.body.phone,
+        brand: 'Barber',
+        code_length: '6'
+      }, (err, result) => {
+        console.log(err ? err : result)
+        res.send(result)
+      });
+    } else {
       res.send(result)
-    });
+    }
   });
 })
 
-router.get('/getuser',function(req,res){
-  const {phone}=req.query
+router.get('/getuser', function (req, res) {
+  const { phone } = req.query
 
 })
 module.exports = router;
