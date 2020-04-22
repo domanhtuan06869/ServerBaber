@@ -44,10 +44,12 @@ app.use('/', require('./routes/book_controller'));
 app.use('/', require('./routes/store_controller'));
 app.use('/', require('./routes/menber_cut_controller'));
 app.use('/', require('./routes/guest_booked_controller'));
+app.use('/', require('./routes/otp'));
 
 app.get('/*', function (req, res) {
     res.sendfile(path.join(__dirname, 'build', 'index.html'))
 });
+
 
 app.use(function (req, res, next) {
     next(createError(404));
