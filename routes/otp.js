@@ -3,8 +3,8 @@ const router = express.Router();
 const Nexmo = require('nexmo');
 
 const nexmo = new Nexmo({
-  apiKey: '33736f1a',
-  apiSecret: 'i8J9MqdI143xHylz',
+  apiKey: '4588f5e0',
+  apiSecret: 'xhzmIbv1QBZZYysS',
 });
 
 
