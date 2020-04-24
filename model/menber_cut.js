@@ -1,19 +1,14 @@
 const mongoose = require('mongoose');
 
 const MenberSchema = new mongoose.Schema({
-    name: {
+    nameStylist: {
         type: String,
         trim: true,
     },
-    address: {
+    ratingStylist: {
         type: String,
         trim: true,
-    },
-    phone: {
-        type: String,
-        trim: true,
-
     },
 
 }, { versionKey: false });
-module.exports = mongoose.model('menber', MenberSchema);
+module.exports = mongoose.model('stylist', MenberSchema);

@@ -10,25 +10,22 @@ router.get('/getStore', function (req, res) {
 });
 
 router.post('/postStore', function (req, res, next) {
-    const { address ,province,district} = req.body
-    const store = new Store({ address:address,province:province,district:district});
+    const { addressLocation, cityLocation, districtLocation,districtDetailLocation } = req.body
+    const store = new Store({
+        addressLocation: addressLocation,
+        cityLocation: cityLocation,
+        districtLocation: districtLocation,
+        districtDetailLocation:districtDetailLocation
+    });
     store.save();
     res.send(store);
 });
 router.delete('/deleteStore', function (req, res, next) {
     const { id } = req.body
     console.log(id)
-    const store=new Store({_id:id});
-     store.remove();
-     res.send(store)
+    const store = new Store({ _id: id });
+    store.remove();
+    res.send(store)
 });
 
-router.get('/aaaa',function(req,res){
-    for(let i=0;i<10000;i++){
-        const saveImage = new Store({ address:'ahahahahaha'});
-        saveImage.save();
-    }
-
-    res.send('ok')
-})
-module.exports=router;
+module.exports = router;

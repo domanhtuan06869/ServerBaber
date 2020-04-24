@@ -1,18 +1,22 @@
 const mongoose = require('mongoose');
 
 const StoreSchema = new mongoose.Schema({
-    province: {
+    cityLocation: {
         type: String,
         trim: true
     },
-    district: {
+    districtLocation: {
         type: String,
         trim: true
     },
-    address: {
+    addressLocation: {
         type: String,
         trim: true,
     },
+    districtDetailLocation: {
+        type: String,
+        trim: true,
+    }
 }, { versionKey: false });
 
-module.exports = mongoose.model('store', StoreSchema);
+module.exports = mongoose.model('location', StoreSchema);
