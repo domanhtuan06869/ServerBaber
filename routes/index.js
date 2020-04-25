@@ -11,7 +11,6 @@ router.post('/Uploadfile', uploadAWS.any(), function (req, res) {
     res.send(responseData)
   })
 
-
 /* GET home page. */
 /*router.post('/postSlide', withAuth,function(req, res, next) {
     const {stt,title,content,urlimage}=req.body

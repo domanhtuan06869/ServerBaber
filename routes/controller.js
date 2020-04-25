@@ -5,11 +5,18 @@ const Oders = new require('../model/oders');
 
 
 router.get('/getProducts', function (req, res) {
-    Product.find({}).then((docs) => res.send(docs));
+    const { type } = req.query
+    let obj;
+    if (type === undefined) {
+        obj = {};
+    } else {
+        obj = { typeProduct: type }
+    }
+    Product.find(obj).then((docs) => res.send(docs));
 })
 
 router.post('/postProduct', function (req, res, next) {
-    const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct ,ratingProduct} = req.body
+    const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct } = req.body
 
     const saveProducct = new Product({
         imageProduct: imageProduct,
@@ -17,7 +24,7 @@ router.post('/postProduct', function (req, res, next) {
         priceProduct: priceProduct,
         typeProduct: typeProduct,
         descriptionProduct: descriptionProduct,
-        ratingProduct:ratingProduct
+        ratingProduct: ratingProduct
     });
 
     saveProducct.save();
@@ -25,14 +32,14 @@ router.post('/postProduct', function (req, res, next) {
 });
 
 router.post('/updateProduct', function (req, res) {
-    const { id, imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct,ratingProduct } = req.body
+    const { id, imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct } = req.body
     Product.findOneAndUpdate({ _id: id }, {
         imageProduct: imageProduct,
         nameProduct: nameProduct,
         priceProduct: priceProduct,
         typeProduct: typeProduct,
         descriptionProduct: descriptionProduct,
-        ratingProduct:ratingProduct
+        ratingProduct: ratingProduct
     }, {
         new: true,
         runValidators: true
@@ -51,12 +58,12 @@ router.delete('/deleteProduct', function (req, res, next) {
 });
 
 router.get('/getOders', function (req, res) {
-    let v=req.query.status
-    Oders.find({__v:v}).then((docs) => res.send(docs));
+    let v = req.query.status
+    Oders.find({ __v: v }).then((docs) => res.send(docs));
 })
 
 router.post('/updateOder', function (req, res) {
-    const {v,id} = req.body
+    const { v, id } = req.body
     console.log(req.body)
     Oders.findOneAndUpdate({ _id: id }, {
         __v: v
