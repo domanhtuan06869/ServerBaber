@@ -9,7 +9,7 @@ router.get('/getProducts', function (req, res) {
 })
 
 router.post('/postProduct', function (req, res, next) {
-    const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct } = req.body
+    const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct ,ratingProduct} = req.body
 
     const saveProducct = new Product({
         imageProduct: imageProduct,
@@ -17,6 +17,7 @@ router.post('/postProduct', function (req, res, next) {
         priceProduct: priceProduct,
         typeProduct: typeProduct,
         descriptionProduct: descriptionProduct,
+        ratingProduct:ratingProduct
     });
 
     saveProducct.save();
@@ -24,13 +25,14 @@ router.post('/postProduct', function (req, res, next) {
 });
 
 router.post('/updateProduct', function (req, res) {
-    const { id, imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct } = req.body
+    const { id, imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct,ratingProduct } = req.body
     Product.findOneAndUpdate({ _id: id }, {
         imageProduct: imageProduct,
         nameProduct: nameProduct,
         priceProduct: priceProduct,
         typeProduct: typeProduct,
         descriptionProduct: descriptionProduct,
+        ratingProduct:ratingProduct
     }, {
         new: true,
         runValidators: true

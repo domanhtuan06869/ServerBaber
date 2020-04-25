@@ -16,6 +16,9 @@ const ProductSchema = new mongoose.Schema({
     },
     descriptionProduct:{
       type:String
+    },
+    ratingProduct:{
+      type:String
     }
   });
   
