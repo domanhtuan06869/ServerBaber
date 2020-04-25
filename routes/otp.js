@@ -30,6 +30,7 @@ router.post('/checkOTP', function (req, res) {
     res.send(result)
   });
 })
+
 router.post('/confirmOTP', async function (req, res) {
   console.log(req.body.id)
   await nexmo.verify.control({

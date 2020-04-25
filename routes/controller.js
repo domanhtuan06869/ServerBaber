@@ -8,7 +8,6 @@ router.get('/getProducts', function (req, res) {
     Product.find({}).then((docs) => res.send(docs));
 })
 
-
 router.post('/postProduct', function (req, res, next) {
     const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct } = req.body
 

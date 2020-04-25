@@ -10,9 +10,9 @@ router.get('/getMenber', function (req, res) {
 });
 
 router.post('/postMenber', function (req, res, next) {
-    const {name,address,phone } = req.body
+    const {nameStylist,ratingStylist } = req.body
 
-    const menber = new Menber({name:name,address:address,phone:phone});
+    const menber = new Menber({ratingStylist:ratingStylist,nameStylist:nameStylist});
     menber.save();
     res.send(menber);
 });
