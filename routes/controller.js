@@ -46,7 +46,6 @@ router.post('/updateProduct', function (req, res) {
     }).then(doc => {
         res.send(doc)
     })
-
 });
 
 router.delete('/deleteProduct', function (req, res, next) {

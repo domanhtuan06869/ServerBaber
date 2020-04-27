@@ -36,6 +36,28 @@ app.use(express.static(path.join(__dirname, 'build')));
     })
 )();
 
+
+app.get('/aaaa', function (req, res) {
+    var Mongoose = require('mongoose').Mongoose;
+
+    var instance1 = new Mongoose();
+    instance1.connect('mongodb+srv://manhtuan:manhtuan9x@cluster0-qbmbu.gcp.mongodb.net/KYC?retryWrites=true&w=majorityn',{
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    });
+    var ModelB = instance1.model('book', new mongoose.Schema({
+        title: { type: String, default: 'model in testB database' }
+    }));
+
+    // const saveProducct = new ModelB({
+    //     title: 'gsdfsdfsd',
+    // });
+    // saveProducct.save();
+    // console.log(saveProducct)
+
+    ModelB.find({}).then((doc)=>res.send(doc))
+})
 app.use('/', indexRouter)
 app.use('/', usersRouter)
 app.use('/', require('./routes/controller'));
@@ -45,6 +67,7 @@ app.use('/', require('./routes/store_controller'));
 app.use('/', require('./routes/menber_cut_controller'));
 app.use('/', require('./routes/guest_booked_controller'));
 app.use('/', require('./routes/otp'));
+app.use('/', require('./routes/service_controller'));
 
 app.get('/*', function (req, res) {
     res.sendfile(path.join(__dirname, 'build', 'index.html'))
