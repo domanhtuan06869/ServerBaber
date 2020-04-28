@@ -8,7 +8,16 @@ router.post('/Uploadfile', uploadAWS.any(), function (req, res) {
     req.files.forEach((data) => {
       responseData.push(data.location);
     });
+    console.log(responseData)
     res.send(responseData)
+  })
+
+  router.post('/Upload', uploadAWS.any(), function (req, res) {
+    let responseData = [];
+    req.files.forEach((data) => {
+      responseData.push(data.location);
+    });
+    res.send({image:responseData[0]})
   })
 
 /* GET home page. */
