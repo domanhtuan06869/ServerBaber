@@ -19,6 +19,7 @@ router.post('/postStyle', function (req, res, next) {
 
 router.delete('/deleteStyle', function (req, res, next) {
     const { id } = req.body
+    
     const style=new Style({_id:id});
      style.remove();
      res.send(style)

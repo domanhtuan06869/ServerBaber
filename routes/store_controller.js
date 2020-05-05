@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 var Store = new require('../model/address_store');
@@ -20,9 +19,9 @@ router.post('/postStore', function (req, res, next) {
     store.save();
     res.send(store);
 });
+
 router.delete('/deleteStore', function (req, res, next) {
     const { id } = req.body
-    console.log(id)
     const store = new Store({ _id: id });
     store.remove();
     res.send(store)
