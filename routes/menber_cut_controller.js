@@ -3,25 +3,25 @@ const router = express.Router();
 const Menber = new require('../model/menber_cut');
 const withAuth = require('../middleware');
 
-router.get('/getMenber', function (req, res) {
+router.get('/getMenber', withAuth, function (req, res) {
     Menber.find({}).then((docs) => {
         res.send(docs)
     })
 });
 
-router.post('/postMenber', function (req, res, next) {
-    const {nameStylist,ratingStylist } = req.body
+router.post('/postMenber', withAuth, function (req, res, next) {
+    const { nameStylist, ratingStylist } = req.body
 
-    const menber = new Menber({ratingStylist:ratingStylist,nameStylist:nameStylist});
+    const menber = new Menber({ ratingStylist: ratingStylist, nameStylist: nameStylist });
     menber.save();
     res.send(menber);
 });
 
-router.delete('/deleteMenber', function (req, res, next) {
+router.delete('/deleteMenber', withAuth, function (req, res, next) {
     const { id } = req.body
-    const menber=new Menber({_id:id});
-     menber.remove();
-     res.send(menber)
+    const menber = new Menber({ _id: id });
+    menber.remove();
+    res.send(menber)
 });
 
 

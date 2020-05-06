@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Product = new require('../model/product');
 const Oders = new require('../model/oders');
+const withAuth = require('../middleware');
 
-
-router.get('/getProducts', function (req, res) {
+router.get('/getProducts',withAuth, function (req, res) {
     const { type } = req.query
     let obj;
     if (type === undefined) {
@@ -15,7 +15,7 @@ router.get('/getProducts', function (req, res) {
     Product.find(obj).then((docs) => res.send(docs));
 })
 
-router.post('/postProduct', function (req, res, next) {
+router.post('/postProduct',withAuth, function (req, res, next) {
     const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct } = req.body
 
     const saveProducct = new Product({
@@ -31,7 +31,7 @@ router.post('/postProduct', function (req, res, next) {
     res.send(saveProducct);
 });
 
-router.post('/updateProduct', function (req, res) {
+router.post('/updateProduct',withAuth, function (req, res) {
     const { id, imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct } = req.body
     Product.findOneAndUpdate({ _id: id }, {
         imageProduct: imageProduct,
@@ -48,7 +48,7 @@ router.post('/updateProduct', function (req, res) {
     })
 });
 
-router.delete('/deleteProduct', function (req, res, next) {
+router.delete('/deleteProduct',withAuth, function (req, res, next) {
     const { id } = req.body
 
     const deleteProduct = new Product({ _id: id });
@@ -56,12 +56,12 @@ router.delete('/deleteProduct', function (req, res, next) {
     res.send(deleteProduct)
 });
 
-router.get('/getOders', function (req, res) {
+router.get('/getOders',withAuth, function (req, res) {
     let v = req.query.status
     Oders.find({ __v: v }).then((docs) => res.send(docs));
 })
 
-router.post('/updateOder', function (req, res) {
+router.post('/updateOder',withAuth, function (req, res) {
     const { v, id } = req.body
     console.log(req.body)
     Oders.findOneAndUpdate({ _id: id }, {
@@ -75,8 +75,7 @@ router.post('/updateOder', function (req, res) {
 
 });
 
-
-router.delete('/deleteOder', function (req, res, next) {
+router.delete('/deleteOder',withAuth, function (req, res, next) {
     const { id } = req.body
 
     const deleteOder = new Oders({ _id: id });

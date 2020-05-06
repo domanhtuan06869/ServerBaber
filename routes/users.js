@@ -5,14 +5,6 @@ const withAuth = require('../middleware');
 const User = require('../model/users')
 const secret = 'mysecretsshhh';
 
-router.get('/api/home', function (req, res) {
-  res.send('Welcome!');
-});
-
-router.get('/api/secret', withAuth, function (req, res) {
-  res.send('The password is potato');
-});
-
 router.post('/api/register', function (req, res) {
   const { email, password } = req.body;
   const user = new User({ email, password });
@@ -66,10 +58,12 @@ router.post('/api/authenticate', function (req, res) {
     }
   });
 });
+
 router.get('/logout', withAuth, (req, res) => {
   req.session.destroy();
   res.send('logout sucssecs')
 })
+
 router.get('/checkToken', withAuth, function (req, res) {
   res.sendStatus(200);
 });
