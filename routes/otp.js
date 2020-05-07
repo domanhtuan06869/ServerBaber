@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Nexmo = require('nexmo');
+const axios = require('axios')
+
+const ApiKey = '85DB6727B810F285A0B286E5840F5B'
+const SecretKey = '030B13A97557D19F1B6EF3E7AE8588'
 
 const nexmo = new Nexmo({
   apiKey: '4588f5e0',
   apiSecret: 'xhzmIbv1QBZZYysS',
 });
-
 
 router.post('/sendOTP', function (req, res) {
   const { phone } = req.body
@@ -57,4 +60,25 @@ router.get('/getuser', function (req, res) {
   const { phone } = req.query
 
 })
+
+router.post('/sendOtp', function (req, res) {
+  const { otp, phone } = req.body
+  axios.get(`http://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_get?Phone=${phone}&Content=${otp}&ApiKey=${ApiKey}&SecretKey=${SecretKey}&Brandname=Verify&SmsType=2&SandBox=0`)
+    .then(function (response) {
+      // handle success
+      console.log(response.data);
+      res.send(response.data)
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+      res.send(error)
+    })
+
+})
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
 module.exports = router;

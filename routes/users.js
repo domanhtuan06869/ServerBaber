@@ -5,6 +5,7 @@ const withAuth = require('../middleware');
 const User = require('../model/users')
 const secret = 'mysecretsshhh';
 
+
 router.post('/api/register', function (req, res) {
   const { email, password } = req.body;
   const user = new User({ email, password });
