@@ -13,14 +13,14 @@ router.post('/api/register', function (req, res) {
       console.log(err);
       res.status(500).send("Error registering new user please try again.");
     } else {
-      res.status(200).send("Welcome to the club!");
+      res.status(200).send("Đăng kí thành công");
     }
   });
 });
 
 router.post('/api/authenticate', function (req, res) {
   const { email, password } = req.body;
-  User.findOne({ email, __v: 1 }, function (err, user) {
+  User.findOne({ email }, function (err, user) {
     if (err) {
       console.error(err);
       res.status(500)
@@ -45,15 +45,20 @@ router.post('/api/authenticate', function (req, res) {
               error: 'Incorrect email or password'
             });
         } else {
-          // Issue token
-          const payload = { email };
-          const token = jwt.sign(payload, secret, {
-            expiresIn: '60h'
-          });
-          req.session.token = token
+          if (user.__v === 1 || user.__v === 2) {
+            // Issue token
+            const payload = { email };
+            const token = jwt.sign(payload, secret, {
+              expiresIn: '60h'
+            });
+            req.session.token = token
 
-          res.sendStatus(200);
+            res.sendStatus(200);
+          } else {
+            res.sendStatus(500);
+          }
         }
+
       });
     }
   });
@@ -64,9 +69,99 @@ router.get('/logout', withAuth, (req, res) => {
   res.send('logout sucssecs')
 })
 
+
 router.get('/checkToken', withAuth, function (req, res) {
   res.sendStatus(200);
 });
 
+router.get('/getUser', withAuth, function (req, res) {
+  User.findOne({ email: req.query.email }).then((docs) => {
+    res.send(docs)
+  })
+});
+
+router.get('/getListUser', withAuth, function (req, res) {
+  User.find({}).then((docs) => {
+    res.send(docs)
+  })
+});
+
+router.post('/updateUser', withAuth, function (req, res) {
+  const { role, id } = req.body
+  User.findOneAndUpdate({ _id: id }, {
+    __v: role
+  }, {
+    new: true,
+    runValidators: true
+  }).then(doc => {
+    res.send(doc)
+  })
+});
+
+router.delete('/deleteUser', withAuth, function (req, res, next) {
+  const { id } = req.body
+
+  const user = new User({ _id: id });
+  user.remove();
+  res.send(user)
+});
+
+
+router.post('/updatePassword', function (req, res) {
+  const { email, oldPassword, newPassword } = req.body;
+
+  User.findOne({ email }, function (err, user) {
+    if (err) {
+      console.error(err);
+      res.status(500)
+        .json({
+          error: 'Internal error please try again'
+        });
+    } else if (!user) {
+      res.status(401)
+        .json({
+          error: 'Incorrect email or password'
+        });
+    } else {
+      user.isCorrectPassword(oldPassword, function (err, same) {
+        if (err) {
+          res.status(500)
+            .json({
+              error: 'Internal error please try again'
+            });
+        } else if (!same) {
+          res.status(401)
+            .json({
+              error: 'Incorrect email or password'
+            });
+        } else {
+          const userdelete = new User({ _id: user._id });
+          userdelete.remove(function (err) {
+            if (err) {
+              res.sendStatus(401)
+            } else {
+              const userNew = new User({ email: email, password: newPassword });
+              userNew.save(function (err) {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send("Error registering new user please try again.");
+                } else {
+                  User.findOneAndUpdate({ _id: userNew._id }, {
+                    __v: user.__v
+                  }, {
+                    new: true,
+                    runValidators: true
+                  }).then(doc => {
+                    res.sendStatus(200)
+                  })
+                }
+              });
+            }
+          })
+        }
+      });
+    }
+  });
+});
 
 module.exports = router

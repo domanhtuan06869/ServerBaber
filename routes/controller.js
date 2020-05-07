@@ -72,7 +72,6 @@ router.post('/updateOder',withAuth, function (req, res) {
     }).then(doc => {
         res.send(doc)
     })
-
 });
 
 router.delete('/deleteOder',withAuth, function (req, res, next) {
