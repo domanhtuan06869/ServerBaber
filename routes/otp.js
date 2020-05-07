@@ -11,18 +11,18 @@ const nexmo = new Nexmo({
   apiSecret: 'xhzmIbv1QBZZYysS',
 });
 
-router.post('/sendOTP', function (req, res) {
-  const { phone } = req.body
-  console.log(phone)
-  nexmo.verify.request({
-    number: '84' + phone,
-    brand: 'Barber',
-    code_length: '6'
-  }, (err, result) => {
-    console.log(err ? err : result)
-    res.send(result)
-  });
-})
+// router.post('/sendOTP', function (req, res) {
+//   const { phone } = req.body
+//   console.log(phone)
+//   nexmo.verify.request({
+//     number: '84' + phone,
+//     brand: 'Barber',
+//     code_length: '6'
+//   }, (err, result) => {
+//     console.log(err ? err : result)
+//     res.send(result)
+//   });
+// })
 
 router.post('/checkOTP', function (req, res) {
   nexmo.verify.check({
