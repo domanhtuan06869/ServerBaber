@@ -56,29 +56,18 @@ router.post('/confirmOTP', async function (req, res) {
   });
 })
 
-router.get('/getuser', function (req, res) {
-  const { phone } = req.query
-
-})
-
 router.post('/sendOtp', function (req, res) {
   const { otp, phone } = req.body
   axios.get(`http://rest.esms.vn/MainService.svc/json/SendMultipleMessage_V4_get?Phone=${phone}&Content=${otp}&ApiKey=${ApiKey}&SecretKey=${SecretKey}&Brandname=Verify&SmsType=2&SandBox=0`)
     .then(function (response) {
       // handle success
-      console.log(response.data);
       res.send(response.data)
     })
     .catch(function (error) {
       // handle error
-      console.log(error);
       res.send(error)
     })
 
 })
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
 
 module.exports = router;
