@@ -51,4 +51,12 @@ router.post('/updateScheduleImage', withAuth, function (req, res, next) {
     })
 });
 
+router.get('/getSchedulePhone', function (req, res) {
+    const { phone } = req.query
+    Schedules.find({ statusSchedule: true, phoneSchedule: phone }).then((docs) => {
+        res.send(docs)
+    })
+});
+
+
 module.exports = router
