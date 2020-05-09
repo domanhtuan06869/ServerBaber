@@ -32,4 +32,24 @@ router.delete('/deleteGuestBooked', withAuth, function (req, res, next) {
     res.send(schedule)
 });
 
+router.get('/getSchedule',function (req, res) {
+    Schedules.find({statusSchedule:true}).then((docs) => {
+        res.send(docs)
+    })
+});
+
+router.post('/updateScheduleImage', withAuth, function (req, res, next) {
+    const { id ,image} = req.body
+    console.log(req.body);
+    
+    Schedules.findOneAndUpdate({ _id: id }, {
+        imageSchedule: image
+    }, {
+        new: true,
+        runValidators: true
+    }).then(doc => {
+        res.send(doc)
+    })
+});
+
 module.exports = router

@@ -15,6 +15,8 @@ router.post('/Uploadfile', uploadAWS.any(),withAuth, function (req, res) {
     req.files.forEach((data) => {
       responseData.push(data.location);
     });
+    console.log(responseData);
+    
     res.send(responseData)
   })
 

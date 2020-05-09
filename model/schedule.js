@@ -17,11 +17,17 @@ const schedule = new mongoose.Schema({
         type: String
     },
     statusSchedule: {
-        type: String
+        type: Boolean
     },
     serviceSchedule: {
         type: String
-    }
+    },
+    phoneSchedule: {
+        type: String
+    },
+    imageSchedule: {
+        type: String
+    },
 }, { versionKey: false });
 
 module.exports = mongoose.model('schedule', schedule);
