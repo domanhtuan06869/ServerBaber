@@ -10,17 +10,18 @@ let beamsClient = new PushNotifications({
   secretKey: 'D84F2913E9458347B803D2D8165A6CB137E70574200B582F8862AAADB93F38B4'
 });
 
-router.post('/Uploadfile', uploadAWS.any(),withAuth, function (req, res) {
-    let responseData = [];
-    req.files.forEach((data) => {
-      responseData.push(data.location);
-    });
-    console.log(responseData);
-    
-    res.send(responseData)
-  })
+router.post('/Uploadfile', uploadAWS.any(), withAuth, function (req, res) {
+  let responseData = [];
+  req.files.forEach((data) => {
+    responseData.push(data.location);
+  });
+  console.log(responseData);
 
-router.get('/pusher',function(req,res){
+  res.send(responseData)
+})
+
+router.post('/pusher', function (req, res) {
+  const { title, content } = req.body
   beamsClient.publishToInterests(['hello'], {
     apns: {
       aps: {
@@ -29,8 +30,9 @@ router.get('/pusher',function(req,res){
     },
     fcm: {
       notification: {
-        title: 'Hello',
-        body: 'Hello, world!'
+        title: title,
+        body: content,
+        sound: 'default',
       }
     }
   }).then((publishResponse) => {
