@@ -173,14 +173,7 @@ router.post('/findNameUser', (req, res) => {
     res.send("Vui lòng nhập đủ thông tin")
   } else {
     UserClient.findOne({ phoneUser: phoneUser }).then((docs) => {
-      try {
-        let userName = docs.nameUser;
-        if (userName === undefined || userName === null) {
-          userName = ''
-        }
-      } catch{
-      }
-      res.send(userName);
+      res.send(docs.nameUser);
     })
   }
 })
