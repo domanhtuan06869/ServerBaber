@@ -172,9 +172,15 @@ router.post('/findNameUser', (req, res) => {
   if (!phoneUser) {
     res.send("Vui lòng nhập đủ thông tin")
   } else {
-    UserClient.findOne({ phoneUser: phoneUser }, (err, docs) => {
-      var nameUser = docs.nameUser
-      res.send(nameUser);
+    UserClient.findOne({ phoneUser: phoneUser }).then((docs) => {
+      try {
+        let userName = docs.nameUser;
+        if (userName === undefined || userName === null) {
+          userName = ''
+        }
+      } catch{
+      }
+      res.send(userName);
     })
   }
 })
@@ -185,9 +191,9 @@ router.post("/updateUser", (req, res) => {
   var phoneUser = req.query.phoneUser;
   UserClient.updateOne({ phoneUser: phoneUser }, { nameUser: name }, (err, docs) => {
     if (!err) {
-      res.send("Sửa thành công")
+      res.sendStatus(200)
     } else {
-      res.send("Lỗi cmnr")
+      res.sendStatus(401)
     }
   })
 })
