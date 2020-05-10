@@ -180,8 +180,8 @@ router.post('/findNameUser', (req, res) => {
 
 //Sửa tên người dùng theo SĐT
 router.post("/updateUser", (req, res) => {
-  var name = req.query.name;
-  var phoneUser = req.query.phoneUser;
+  let name = req.query.name;
+  let phoneUser = req.query.phoneUser;
   UserClient.updateOne({ phoneUser: phoneUser }, { nameUser: name }, (err, docs) => {
     if (!err) {
       res.sendStatus(200)
@@ -192,8 +192,8 @@ router.post("/updateUser", (req, res) => {
 })
 
 router.post('/addUser', (req, res) => {
-  var nameUser = req.query.nameUser;
-  var phoneUser = req.query.phoneUser;
+  let nameUser = req.body.nameUser;
+  let phoneUser = req.body.phoneUser;
 
   if (!nameUser || !phoneUser) {
     res.send('Vui lòng nhập đủ thông tin')
