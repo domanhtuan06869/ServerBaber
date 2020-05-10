@@ -9,10 +9,10 @@ router.get('/getMenber', withAuth, function (req, res) {
     })
 });
 
-router.post('/postMenber', withAuth, function (req, res, next) {
-    const { nameStylist, ratingStylist } = req.body
+router.post('/postMenber',  function (req, res, next) {
+    const { nameStylist, ratingStylist, locationStylist } = req.body
 
-    const menber = new Menber({ ratingStylist: ratingStylist, nameStylist: nameStylist });
+    const menber = new Menber({ ratingStylist: ratingStylist, nameStylist: nameStylist, locationStylist: locationStylist });
     menber.save();
     res.send(menber);
 });
@@ -25,5 +25,11 @@ router.delete('/deleteMenber', withAuth, function (req, res, next) {
 });
 
 
+router.get('/getStyList', function (req, res) {
+    const { location } = req.query
+    Menber.find({ locationStylist: location }).then((docs) => {
+        res.send(docs)
+    })
+});
 
 module.exports = router
