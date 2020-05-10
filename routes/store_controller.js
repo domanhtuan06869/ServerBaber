@@ -29,4 +29,9 @@ router.delete('/deleteStore', withAuth, function (req, res, next) {
     res.send(store)
 });
 
+router.get("/location", (req, res) => {
+    Store.find((err, docs) => {
+        res.send(docs)
+    })
+})
 module.exports = router;
