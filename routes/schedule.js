@@ -59,4 +59,37 @@ router.get('/getSchedulePhone', function (req, res) {
 });
 
 
+router.post('/bookingSchedule', (req, res) => {
+    var nameSchedule = req.query.nameSchedule;
+    var phoneSchedule = req.query.phoneSchedule;
+    var locationSchedule = req.query.locationSchedule;
+    var timeSchedule = req.query.timeSchedule;
+    var dateSchedule = req.query.dateSchedule;
+    var stylistSchedule = req.query.stylistSchedule;
+    var serviceSchedule = req.query.serviceSchedule;
+    var statusSchedule = req.query.statusSchedule;
+    var imageSchedule = req.query.imageSchedule;
+
+    Schedules.create([
+        {
+            "nameSchedule": nameSchedule,
+            "phoneSchedule": phoneSchedule,
+            "locationSchedule": locationSchedule,
+            "timeSchedule": timeSchedule,
+            "dateSchedule": dateSchedule,
+            "stylistSchedule": stylistSchedule,
+            "serviceSchedule": serviceSchedule,
+            "statusSchedule": statusSchedule,
+            "imageSchedule": imageSchedule
+        }
+    ], (err) => {
+        if (!err) {
+            res.send("thêm thành công")
+        } else {
+            res.send(err)
+        }
+    })
+})
+
+
 module.exports = router

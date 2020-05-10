@@ -3,6 +3,7 @@ const router = express.Router()
 const jwt = require('jsonwebtoken')
 const withAuth = require('../middleware');
 const User = require('../model/users')
+const UserClient = require('../model/userClient')
 const secret = 'mysecretsshhh';
 
 
@@ -87,7 +88,7 @@ router.get('/getListUser', withAuth, function (req, res) {
   })
 });
 
-router.post('/updateUser', withAuth, function (req, res) {
+router.post('/updateUsers', withAuth, function (req, res) {
   const { role, id } = req.body
   User.findOneAndUpdate({ _id: id }, {
     __v: role
@@ -164,5 +165,47 @@ router.post('/updatePassword', function (req, res) {
     }
   });
 });
+
+
+router.post('/findNameUser', (req, res) => {
+  var phoneUser = req.query.phoneUser;
+  if (!phoneUser) {
+    res.send("Vui lòng nhập đủ thông tin")
+  } else {
+    UserClient.findOne({ phoneUser: phoneUser }, (err, docs) => {
+      var nameUser = docs.nameUser
+      res.send(nameUser);
+    })
+  }
+})
+
+//Sửa tên người dùng theo SĐT
+router.post("/updateUser", (req, res) => {
+  var name = req.query.name;
+  var phoneUser = req.query.phoneUser;
+  UserClient.updateOne({ phoneUser: phoneUser }, { nameUser: name }, (err, docs) => {
+    if (!err) {
+      res.send("Sửa thành công")
+    } else {
+      res.send("Lỗi cmnr")
+    }
+  })
+})
+
+router.post('/addUser', (req, res) => {
+  var nameUser = req.query.nameUser;
+  var phoneUser = req.query.phoneUser;
+
+  if (!nameUser || !phoneUser) {
+    res.send('Vui lòng nhập đủ thông tin')
+  } else {
+    User.create([{
+      "nameUser": nameUser,
+      "phoneUser": phoneUser
+    }])
+    res.send('Thêm người dùng thành công')
+  }
+
+})
 
 module.exports = router

@@ -3,11 +3,17 @@ const router = express.Router();
 const Service = new require('../model/service');
 const withAuth = require('../middleware');
 
-router.get('/getService', function (req, res) {
+router.get('/getService',withAuth, function (req, res) {
     Service.find({}).then((docs) => {
         res.send(docs)
     })
 });
+
+router.get("/service", (req, res) => {
+    Service.find((err, docs) => {
+        res.send(docs)
+    })
+})
 
 router.post('/postService',withAuth, function (req, res, next) {
     const { nameService, detailService, priceService } = req.body
