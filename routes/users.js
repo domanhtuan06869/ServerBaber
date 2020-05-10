@@ -205,7 +205,6 @@ router.post('/addUser', (req, res) => {
     }])
     res.send('Thêm người dùng thành công')
   }
-
 })
 
 module.exports = router
