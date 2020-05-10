@@ -193,17 +193,24 @@ router.post("/updateUser", (req, res) => {
 
 router.post('/addUser', (req, res) => {
   let nameUser = req.body.nameUser;
-  let phoneUser = req.body.phoneUser;
+  let phone = req.body.phoneUser;
+  UserClient.findOne({ phoneUser: phone }).then((docs) => {
+    if (!docs) {
+      if (!nameUser || !phone) {
+        res.send('Vui lòng nhập đủ thông tin')
+      } else {
+        UserClient.create([{
+          "nameUser": nameUser,
+          "phoneUser": phone
+        }])
+        res.send('Thêm người dùng thành công')
+      }
+    } else {
+      res.sendy('Người dùng đã tồn tại')
+    }
 
-  if (!nameUser || !phoneUser) {
-    res.send('Vui lòng nhập đủ thông tin')
-  } else {
-    User.create([{
-      "nameUser": nameUser,
-      "phoneUser": phoneUser
-    }])
-    res.send('Thêm người dùng thành công')
-  }
+    res.send(docs)
+  })
 })
 
 module.exports = router
