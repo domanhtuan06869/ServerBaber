@@ -206,7 +206,7 @@ router.post('/addUser', (req, res) => {
         res.send('Thêm người dùng thành công')
       }
     } else {
-      res.sendy('Người dùng đã tồn tại')
+      res.send('Người dùng đã tồn tại')
     }
 
     res.send(docs)
