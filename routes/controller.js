@@ -16,7 +16,7 @@ router.get('/getProducts', withAuth, function (req, res) {
 })
 
 router.post('/postProduct', withAuth, function (req, res, next) {
-    const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct } = req.body
+    const { imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct, amountProduct } = req.body
 
     const saveProducct = new Product({
         imageProduct: imageProduct,
@@ -24,7 +24,8 @@ router.post('/postProduct', withAuth, function (req, res, next) {
         priceProduct: priceProduct,
         typeProduct: typeProduct,
         descriptionProduct: descriptionProduct,
-        ratingProduct: ratingProduct
+        ratingProduct: ratingProduct,
+        amountProduct: amountProduct
     });
 
     saveProducct.save();
@@ -32,14 +33,15 @@ router.post('/postProduct', withAuth, function (req, res, next) {
 });
 
 router.post('/updateProduct', withAuth, function (req, res) {
-    const { id, imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct } = req.body
+    const { id, imageProduct, nameProduct, priceProduct, typeProduct, descriptionProduct, ratingProduct, amountProduct } = req.body
     Product.findOneAndUpdate({ _id: id }, {
         imageProduct: imageProduct,
         nameProduct: nameProduct,
         priceProduct: priceProduct,
         typeProduct: typeProduct,
         descriptionProduct: descriptionProduct,
-        ratingProduct: ratingProduct
+        ratingProduct: ratingProduct,
+        amountProduct: amountProduct
     }, {
         new: true,
         runValidators: true
@@ -85,7 +87,6 @@ router.get("/searchProduct", (req, res) => {
     let name = req.query.name;
     if (!name) {
         res.send("VUi long khong de trong tên sản phẩm");
-        //nếu có lỗi thì dừng luôn
         return;
     }
     Product.find({ nameProduct: name }).then((docs) => {
@@ -93,7 +94,6 @@ router.get("/searchProduct", (req, res) => {
     })
 })
 
-//Sắp xếp sản phẩm tăng dần
 router.get("/result/asc", (req, res) => {
     let id = req.query.id;
     Product.find({ typeProduct: id }).sort({ priceProduct: 1 }).exec((err, docs) => {
@@ -101,7 +101,6 @@ router.get("/result/asc", (req, res) => {
     })
 })
 
-//Sắp xếp sản phẩm giảm dần
 router.get("/result/dsc", (req, res) => {
     let id = req.query.id;
     Product.find({ typeProduct: id }).sort({ priceProduct: -1 }).exec((err, docs) => {
@@ -110,10 +109,9 @@ router.get("/result/dsc", (req, res) => {
 })
 
 router.get("/result", (req, res) => {
-    var id = req.query.id;
+    let id = req.query.id;
     if (!id) {
         res.send("VUi long khong de trong id");
-        //nếu có lỗi thì dừng luôn
         return;
     }
     Product.find({ typeProduct: id }).then((docs) => {
@@ -139,4 +137,39 @@ router.post('/oder', function (req, res, next) {
     res.send(saveOder);
 });
 
+
+
+router.post('/updateAmountProduct', function (req, res) {
+    const { name, amount } = req.body
+    Product.findOne({ nameProduct: name }).then((doc) => {
+        if (doc) {
+            Product.findOneAndUpdate({ _id: doc._id }, {
+                amountProduct: Number(doc.amountProduct) + Number(amount)
+            }, {
+                new: true,
+                runValidators: true
+            }).then(doc => {
+                res.send(doc)
+            })
+        } else {
+            res.sendStatus(401)
+        }
+    })
+});
+
 module.exports = router;
+
+function updateAmout(amount, name) {
+    Product.findOne({ nameProduct: name }).then((doc) => {
+        if (doc) {
+            Product.findOneAndUpdate({ _id: doc._id }, {
+                amountProduct: Number(doc.amountProduct) + Number(amount)
+            }, {
+                new: true,
+                runValidators: true
+            }).then(doc => {
+            })
+        } else {
+        }
+    })
+}
